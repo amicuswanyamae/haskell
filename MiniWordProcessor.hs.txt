@@ -1,0 +1,45 @@
+main = do
+ let import Text.Format
+ let import Data.Text.Internal.Search
+ let import Data.Text
+s=count."section"--count number of a certain word
+t=count."table"
+f=count."figure"
+r=count."ref"
+forLoop::int-int-int
+forLoop s value=
+if i < s
+then forLoop (i+1) format "Section{title}{id}"[show i,show {title}]
+then replace "Section{i}{title}""Section{i}:{title}"
+else value
+forLoop t value=
+if i < t
+then forLoop (j+1) format "table{title}{id}" [show i.j, show{title}]--change the text
+then replace "table{i}.{j}{title}""Table{i}.{j}:{title}"
+else value
+forLoop f value=
+if k < f
+then forLoop (k+1) format "figure {title}{id}" [show i.k, show {title}]--change the text
+then replace "Figure {title}{id}""Figure {i}.{k} : {title}"
+else value
+if "ref{id}"=="table{title}"
+then forLoop r value+
+if l < r
+then forLoop(l+1) format "ref {id}"[show {title}]--change the text
+then replace "ref {id}""see {title} {i}.{l}"
+else value
+else nothing 
+if "ref {id}"=="Figure{title}"
+then forLoop r value =
+if m < r
+then forLoop (m+1) format "ref {id}" [show {title}]--change the text
+then replace "ref{id}" "see {title} {i}.{m}"
+else value
+else nothing 
+if "ref {id}"=="Section {title}"
+then forLoop r value=
+if n < r
+then forLoop (n+1) format "ref {id}" [show {title}]
+then replace "ref {id}""see {title}{i}"
+else value
+else nothing 
